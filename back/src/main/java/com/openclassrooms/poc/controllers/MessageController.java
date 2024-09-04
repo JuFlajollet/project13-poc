@@ -1,6 +1,5 @@
 package com.openclassrooms.poc.controllers;
 
-import com.openclassrooms.poc.model.NewMessage;
 import com.openclassrooms.poc.model.TchatMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -12,7 +11,7 @@ public class MessageController {
 
     @MessageMapping("/message")
     @SendTo("/topic/tchating")
-    public TchatMessage tchating(NewMessage message) {
-        return new TchatMessage(HtmlUtils.htmlEscape(message.getUser()) + " : " + HtmlUtils.htmlEscape(message.getContent()));
+    public TchatMessage tchating(TchatMessage message) {
+        return new TchatMessage(HtmlUtils.htmlEscape(message.getContent()));
     }
 }
