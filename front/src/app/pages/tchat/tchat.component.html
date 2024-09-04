@@ -1,0 +1,17 @@
+<div id="messages">
+    <form [formGroup]="messageForm" (ngSubmit)="onSendMessage()">  
+        <label for="username">Username: </label>  
+        <input id="username" type="text" formControlName="userName">
+        <label for="message">Message: </label>  
+        <input id="message" type="text" formControlName="message">
+        <button type="submit" [disabled]="!messageForm.valid">Send Message</button>
+    </form>
+
+    <h2>Tchat</h2>
+    <ol>
+      <li class="tchat" *ngFor="let message of receivedMessages">
+        {{message}}
+      </li>
+    </ol>
+</div>
+  
