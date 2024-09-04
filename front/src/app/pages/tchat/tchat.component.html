@@ -4,7 +4,7 @@
         <input id="username" type="text" formControlName="userName">
         <label for="message">Message: </label>  
         <input id="message" type="text" formControlName="message">
-        <button type="submit" [disabled]="!messageForm.valid">Send Message</button>
+        <button type="submit" [disabled]="messageForm.invalid">Send Message</button>
     </form>
 
     <h2>Tchat</h2>

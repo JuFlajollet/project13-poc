@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RxStompService } from '../../rx-stomp.service';
 import { Message } from '@stomp/stompjs';
 import { Subscription } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -12,15 +12,32 @@ import { DatePipe } from '@angular/common';
 })
 export class TchatComponent {
 
-  messageForm = new FormGroup({
-    userName: new FormControl(''),    
-    message: new FormControl(''),
+  private formBuilder = inject(FormBuilder);
+
+  messageForm: FormGroup = this.formBuilder.group({
+    userName: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(40)
+      ]
+    ],
+    message: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(280)
+      ]
+    ],  
   });
 
   receivedMessages: string[] = [];
   private topicSubscription: Subscription;
 
-  constructor(private rxStompService: RxStompService, private datePipe: DatePipe) {
+  constructor(private rxStompService: RxStompService, 
+    private datePipe: DatePipe) {
     this.topicSubscription = this.rxStompService.watch('/topic/tchating').subscribe((message: Message) => {
       console.log(message.body);
       this.receivedMessages.push(message.body);
