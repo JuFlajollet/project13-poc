@@ -14,7 +14,7 @@ _Requirements:_
 
 #### Setup Back
 
-- Clone the project (if you didn't do already):
+- Clone the project (if you didn't do it already):
 
 > git clone https://github.com/JuFlajollet/project13-poc.git
 
@@ -45,3 +45,8 @@ _Requirements:_
 
 > npm run start;
 
+
+#### DB schema
+
+SQL script for creating the DB schema for new applications of YourCarYourWay is available there: `resources/sql/script.sql`
+However, this script is not required to run this PoC.
