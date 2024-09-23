@@ -1,7 +1,7 @@
 CREATE TABLE `USERS` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
-  `email` VARCHAR(255),
-  `password` VARCHAR(255),
+  `email` VARCHAR(255) UNIQUE NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
   `first_name` VARCHAR(40),
   `last_name` VARCHAR(40),
   `address` VARCHAR(255),
@@ -47,9 +47,10 @@ CREATE TABLE `VEHICLES` (
 );
 
 CREATE TABLE `BOOKING` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
   `user_id` INT, 
   `rental_id` INT,
-  `status` VARCHAR(255)
+  `status` VARCHAR(255) NOT NULL
 );
 
 ALTER TABLE `RENTALS` ADD FOREIGN KEY (`vehicle_id`) REFERENCES `VEHICLES` (`id`);
