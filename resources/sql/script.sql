@@ -12,20 +12,21 @@ CREATE TABLE `USERS` (
 
 CREATE TABLE `RENTALS` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
-  `vehicle_id` INT,
-  `start_city` VARCHAR(255),
-  `end_city` VARCHAR(255),
-  `start_date_time` DATETIME,
-  `end_date_time` DATETIME,
-  `price` DECIMAL(12, 2),
-  `rental_agency_id` INT,
+  `vehicle_id` INT NOT NULL,
+  `vehicle_category` VARCHAR(255) NOT NULL,
+  `start_city` VARCHAR(255) NOT NULL,
+  `end_city` VARCHAR(255) NOT NULL,
+  `start_date_time` DATETIME NOT NULL,
+  `end_date_time` DATETIME NOT NULL,
+  `price` DECIMAL(12, 2) NOT NULL,
+  `rental_agency_id` INT NOT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE `RENTAL_AGENCIES` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
-  `name` VARCHAR(255),
+  `name` VARCHAR(255) NOT NULL,
   `address` VARCHAR(255),
   `phone_number` VARCHAR(40),
   `director_name` VARCHAR(40),
@@ -35,7 +36,7 @@ CREATE TABLE `RENTAL_AGENCIES` (
 
 CREATE TABLE `VEHICLES` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
-  `model` VARCHAR(255),
+  `model` VARCHAR(255) NOT NULL,
   `passenger_amount` INT,
   `luggage_amount` INT,
   `door_amount` INT,
@@ -48,8 +49,8 @@ CREATE TABLE `VEHICLES` (
 
 CREATE TABLE `BOOKING` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
-  `user_id` INT, 
-  `rental_id` INT,
+  `user_id` INT NOT NULL, 
+  `rental_id` INT NOT NULL,
   `status` VARCHAR(255) NOT NULL
 );
 
@@ -67,8 +68,8 @@ VALUES ('Test Agence de location', '36 Rue de la soif 75000 Paris', '0396738935'
 INSERT INTO VEHICLES (model, passenger_amount, luggage_amount, door_amount, fuel_type, gearbox_type, air_conditioning)
 VALUES ('Renault', 4, 3, 4, 'électrique', 'automatique', 1);
 
-INSERT INTO RENTALS (vehicle_id, start_city, end_city, start_date_time, end_date_time, price, rental_agency_id)
-VALUES (1, 'Paris', 'Marseille', '2024-10-31 23:59:59', '2024-11-02 23:59:59', 199.99, 1);
+INSERT INTO RENTALS (vehicle_id, vehicle_category, start_city, end_city, start_date_time, end_date_time, price, rental_agency_id)
+VALUES (1, 'B', 'Paris', 'Marseille', '2024-10-31 23:59:59', '2024-11-02 23:59:59', 199.99, 1);
 
 INSERT INTO BOOKING (user_id, rental_id, status)
 VALUES (1, 1, 'réservé');
