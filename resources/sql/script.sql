@@ -69,7 +69,7 @@ INSERT INTO VEHICLES (model, passenger_amount, luggage_amount, door_amount, fuel
 VALUES ('Renault', 4, 3, 4, 'électrique', 'automatique', 1);
 
 INSERT INTO RENTALS (vehicle_id, vehicle_category, start_city, end_city, start_date_time, end_date_time, price, rental_agency_id)
-VALUES (1, 'B', 'Paris', 'Marseille', '2024-10-31 23:59:59', '2024-11-02 23:59:59', 199.99, 1);
+VALUES (1, 'S', 'Paris', 'Marseille', '2024-10-31 23:59:59', '2024-11-02 23:59:59', 199.99, 1);
 
 INSERT INTO BOOKING (user_id, rental_id, status)
 VALUES (1, 1, 'réservé');
