@@ -47,17 +47,45 @@ CREATE TABLE `VEHICLES` (
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+CREATE TABLE `TCHATBOXES` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE `TCHAT_MESSAGES` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `tchatbox_id` INT NOT NULL, 
+  `user_id` INT NOT NULL,
+  `message` VARCHAR(255) NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 CREATE TABLE `BOOKING` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
   `user_id` INT NOT NULL, 
   `rental_id` INT NOT NULL,
-  `status` VARCHAR(255) NOT NULL
+  `status` VARCHAR(255) NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE `TCHATING` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `tchatbox_id` INT NOT NULL, 
+  `user_id` INT NOT NULL
 );
 
 ALTER TABLE `RENTALS` ADD FOREIGN KEY (`vehicle_id`) REFERENCES `VEHICLES` (`id`);
 ALTER TABLE `RENTALS` ADD FOREIGN KEY (`rental_agency_id`) REFERENCES `RENTAL_AGENCIES` (`id`);
 ALTER TABLE `BOOKING` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS` (`id`);
 ALTER TABLE `BOOKING` ADD FOREIGN KEY (`rental_id`) REFERENCES `RENTALS` (`id`);
+ALTER TABLE `TCHAT_MESSAGES` ADD FOREIGN KEY (`tchatbox_id`) REFERENCES `TCHATBOXES` (`id`);
+ALTER TABLE `TCHAT_MESSAGES` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS` (`id`);
+ALTER TABLE `TCHATING` ADD FOREIGN KEY (`tchatbox_id`) REFERENCES `TCHATBOXES` (`id`);
+ALTER TABLE `TCHATING` ADD FOREIGN KEY (`user_id`) REFERENCES `USERS` (`id`);
 
 INSERT INTO USERS (email, password, first_name, last_name, address, birth_date)
 VALUES ('test@gmail.com', '$2a$10$TtvgboXV.LyOWWKd/icCxuh8XfTF2foRkB8DH3MPvJKBJz9kqiWhq', 'Test', 'Test', '40 Rue de la faim 75000 Paris', '2024-08-31');
@@ -71,5 +99,14 @@ VALUES ('Renault', 4, 3, 4, 'électrique', 'automatique', 1);
 INSERT INTO RENTALS (vehicle_id, vehicle_category, start_city, end_city, start_date_time, end_date_time, price, rental_agency_id)
 VALUES (1, 'S', 'Paris', 'Marseille', '2024-10-31 23:59:59', '2024-11-02 23:59:59', 199.99, 1);
 
+INSERT INTO TCHATBOXES (name)
+VALUES ('Problème de réservation');
+
+INSERT INTO TCHAT_MESSAGES (tchatbox_id, user_id, message)
+VALUES (1, 1, '$2y$10$BYypdlHqsz04/eTvW6iSTOYN3uz3XCCVY2E1lzdn1rILKz9IXg6J2');
+
 INSERT INTO BOOKING (user_id, rental_id, status)
 VALUES (1, 1, 'réservé');
+
+INSERT INTO TCHATING (tchatbox_id, user_id)
+VALUES (1, 1);
